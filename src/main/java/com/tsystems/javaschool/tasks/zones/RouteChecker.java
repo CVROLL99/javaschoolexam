@@ -4,7 +4,6 @@ import java.util.List;
 
 public class RouteChecker {
 
-
     /**
      * Checks whether required zones are connected with each other.
      * By connected we mean that there is a path from any zone to any zone from the requested list.
@@ -30,37 +29,27 @@ public class RouteChecker {
         List<Integer> neigbours;
         List<Integer> neigbours2;
 
-
         if(requestedZoneIds.size()<=1){
-            can = false;//Assert15
+            can = false;
         }
 
-            while(can){
+        while(can){
                 while(countOfZone < countOfSteps-1) {
-            actualZone = requestedZoneIds.get(countOfZone);
-
-            System.out.println("Откуда мы идем " + actualZone);//куда мы хотим путешествовать
-            neigbours = zoneState.get(actualZone - 1).getNeighbours();
-            System.out.println("Соседи этой зоны " + neigbours);//Соседи зоны откуда
-            nextZone = requestedZoneIds.get(countOfZone + 1);
-            System.out.println("Куда мы идем " + nextZone);
-            neigbours2 = zoneState.get(nextZone - 1).getNeighbours();
-            System.out.println("Соседи этой зоны " + neigbours2);
-
-
-            if (neigbours.contains(nextZone) || neigbours2.contains(actualZone)){
-                can = true;
-                countOfZone++;
-                System.out.println(can);
-            } else {
-                can = false;
-                System.out.println(can);
-                break;
-            }
-            }
-                if(countOfZone==countOfSteps-1){
+                actualZone = requestedZoneIds.get(countOfZone);
+                neigbours = zoneState.get(actualZone - 1).getNeighbours();
+                nextZone = requestedZoneIds.get(countOfZone + 1);
+                neigbours2 = zoneState.get(nextZone - 1).getNeighbours();
+                if (neigbours.contains(nextZone) || neigbours2.contains(actualZone)){
+                    can = true;
+                    countOfZone++;
+                } else {
+                    can = false;
                     break;
                 }
+            }
+            if(countOfZone==countOfSteps-1){
+                break;
+            }
 
         }
 
